@@ -1,0 +1,150 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ReadSMART — Student</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Special+Elite&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Font Awesome for icons -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <header class="site-header" aria-hidden="true"></header>
+
+  <main class="wrap">
+    <section class="auth-card" id="auth-card" aria-labelledby="brand-text">
+      <div class="brand">
+        <h1 id="brand-text">ReadSMART</h1>
+        <div class="book-icon" aria-hidden="true">📚</div>
+      </div>
+
+      <!-- LOGIN FORM -->
+      <form id="login-form" class="auth-form" aria-label="Login form">
+        <h2>Login</h2>
+        <input id="login-username" placeholder="Username" required autocomplete="username" />
+        <input id="login-password" type="password" placeholder="Password" minlength="8" required autocomplete="current-password" />
+        <div class="small-note">Password must be at least 8 characters.</div>
+        <button type="submit" class="btn">Login</button>
+
+        <div class="auth-links">
+          <a href="#" id="forgot-link">Forgot password?</a>
+        </div>
+
+        <p class="muted">Don't have an account? <a href="#" id="show-signup">Sign Up</a></p>
+      </form>
+
+      <!-- SIGNUP FORM -->
+      <form id="signup-form" class="auth-form" style="display:none;" aria-label="Signup form">
+        <h2>Sign Up (Students)</h2>
+        <input id="fullname" placeholder="Full name" required />
+        <select id="gender" required>
+          <option value="">Select gender</option>
+          <option>Male</option>
+          <option>Female</option>
+        </select>
+        <input id="grade" placeholder="Grade (e.g., 6)" required />
+        <input id="section" placeholder="Section (e.g., A)" required />
+        <input id="school-student" placeholder="School" required />
+        <input id="signup-username" placeholder="Choose a username" required autocomplete="username" />
+        <input id="signup-password" type="password" placeholder="Choose password (min 8 chars)" minlength="8" required autocomplete="new-password" />
+        <div class="small-note">Make a unique username. Password must be at least 8 characters.</div>
+        <button type="submit" class="btn">Create Account</button>
+        <p class="muted">Already have an account? <a href="#" id="show-login">Login</a></p>
+      </form>
+
+      <!-- FORGOT / RESET PANEL (hidden by default) -->
+      <form id="reset-form" class="auth-form" style="display:none;" aria-label="Reset password form">
+        <h2>Reset Password</h2>
+        <input id="reset-username" placeholder="Enter your username" required autocomplete="username" />
+        <input id="reset-password" type="password" placeholder="New password (min 8 chars)" minlength="8" required />
+        <input id="reset-password-confirm" type="password" placeholder="Confirm new password" minlength="8" required />
+        <div class="small-note">Enter your username and a secure new password (minimum 8 characters).</div>
+        <div style="display:flex; gap:8px; align-items:center;">
+          <button type="submit" class="btn">Save New Password</button>
+          <button type="button" id="reset-cancel" class="btn" style="background:#a27b52;">Cancel</button>
+        </div>
+        <p class="muted" style="margin-top:8px;">After resetting, use your new password to log in.</p>
+      </form>
+
+    </section>
+
+    <section class="main-panel" id="homepage" style="display:none;">
+      <div class="top-row">
+        <div class="welcome" id="welcome-text">Welcome, Reader!</div>
+
+        <div style="position:relative;">
+          <button id="hamburger" class="hamburger" title="Menu"><i class="fas fa-bars"></i></button>
+          <div id="hamburger-menu" class="menu" aria-hidden="true">
+            <button id="menu-profile">Profile</button>
+            <button id="menu-about">About us</button>
+            <button id="menu-logout">Log out</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="main-body">
+        <nav class="folders" id="folders" aria-label="Folders">
+          <div class="folder" data-level="literal"><i class="fas fa-book-open"></i>📖 Literal Comprehension</div>
+          <div class="folder" data-level="inferential"><i class="fas fa-lightbulb"></i>💡 Inferential Comprehension</div>
+          <div class="folder" data-level="critical"><i class="fas fa-balance-scale"></i>⚖ Critical Comprehension</div>
+        </nav>
+
+        <section class="content-area" id="content-area" tabindex="0">
+          <div class="placeholder">
+            <h3>Choose a folder to begin</h3>
+            <p>Each passage includes questions (MCQ & essay). Answers are scored & saved automatically when you submit.</p>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <template id="profile-template">
+    <div class="profile-card">
+      <h3>PROFILE</h3>
+      <table class="profile-table" role="table">
+        <tr><td><strong>Name:</strong></td><td id="profile-name"></td></tr>
+        <tr><td><strong>Gender:</strong></td><td id="profile-gender"></td></tr>
+        <tr><td><strong>Username:</strong></td><td id="profile-username"></td></tr>
+        <tr><td><strong>Grade & Section:</strong></td><td id="profile-group"></td></tr>
+        <tr><td><strong>School:</strong></td><td id="profile-school-info"></td></tr>
+      </table>
+
+      <h3 style="margin-top:12px;">EXAMINATION RESULTS</h3>
+      <div style="max-height:300px; overflow:auto;">
+        <table class="record-table" id="record-table">
+          <thead><tr><th>Date</th><th>Title</th><th>Level</th><th>Score</th><th>Total</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <div style="text-align:center;margin-top:12px;"><button class="btn" id="profile-back">← Back</button></div>
+    </div>
+  </template>
+
+  <div id="about-modal" class="modal" aria-hidden="true">
+  <div class="modal-content">
+    <button class="close" id="close-about" aria-label="Close about">&times;</button>
+    <h3>About ReadSMART</h3>
+    <p><strong>ReadSMART</strong> is a learning companion built to strengthen every student’s reading comprehension through engaging passages, reflection, and practice.</p>
+    <p>It focuses on three core levels of understanding:</p>
+    <ul>
+      <li><strong>Literal</strong> — grasping the facts and details</li>
+      <li><strong>Inferential</strong> — uncovering hidden meanings and insights</li>
+      <li><strong>Critical</strong> — thinking deeply and forming your own judgments</li>
+    </ul>
+    <p><strong>SMART</strong> stands for <em>Strategic · Measured · Active · Reflective · Trackable</em> — guiding values that help readers grow with purpose and joy.</p>
+    <p>Through consistent practice, ReadSMART inspires every learner to read not just with their eyes, but with their mind and heart. ❤️</p>
+    <div style="text-align:center;margin-top:12px;"><button class="btn" id="about-close-btn">Close</button></div>
+  </div>
+</div>
+
+  <script src="script.js"></script>
+</body>
+</html>
